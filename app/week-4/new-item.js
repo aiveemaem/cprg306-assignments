@@ -1,12 +1,10 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Counter() {
+export default function NewItem() {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
-
-  console.log("hello");
 
   const handleSubmit = (event) => {
     event.preventDefault(); //Prevent the form's default submission behavior
