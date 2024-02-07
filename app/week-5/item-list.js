@@ -33,25 +33,25 @@ export default function ItemList() {
         <label htmlFor="sort">Sort by:</label>
         <button
           onClick={() => setSortBy("name")}
-          className={`bg-${
-            sortBy === "name" ? "pink-500" : "pink-300"
-          } p-1 m-2 w-20 text-black hover:bg-pink-500 rounded-sm`}
+          className={`p-1 m-2 w-28 text-black rounded-sm ${
+            sortBy === "name" ? "bg-pink-500" : "bg-pink-300"
+          }`}
         >
           Name
         </button>
         <button
           onClick={() => setSortBy("category")}
-          className={`bg-${
-            sortBy === "category" ? "pink-500" : "pink-300"
-          } p-1 m-2 w-20 text-black hover:bg-pink-500 rounded-sm`}
+          className={`p-1 m-2 w-28 text-black rounded-sm ${
+            sortBy === "category" ? "bg-pink-500" : "bg-pink-300"
+          }`}
         >
           Category
         </button>
         <button
           onClick={() => setSortBy("groupCategory")}
-          className={`bg-${
-            sortBy === "groupCategory" ? "pink-500" : "pink-300"
-          } p-1 m-2 w-25 text-black hover:bg-pink-500 rounded-sm`}
+          className={`p-1 m-2 w-25 text-black rounded-sm ${
+            sortBy === "groupCategory" ? "bg-pink-500" : "bg-pink-300"
+          }`}
         >
           Grouped Category
         </button>
