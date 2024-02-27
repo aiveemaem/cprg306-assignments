@@ -66,6 +66,7 @@ export default function ItemList({ items }) {
                     {items.map((item) => (
                       <li key={item.id}>
                         <Item
+                          id={item.id}
                           name={item.name}
                           quantity={item.quantity}
                           category={item.category}
@@ -78,6 +79,7 @@ export default function ItemList({ items }) {
             : sortedItems.map((item) => (
                 <li key={item.id}>
                   <Item
+                    id={item.id}
                     name={item.name}
                     quantity={item.quantity}
                     category={item.category}

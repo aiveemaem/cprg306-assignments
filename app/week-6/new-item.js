@@ -8,10 +8,10 @@ export default function NewItem({ onAddItem }) {
 
   const handleSubmit = (event) => {
     event.preventDefault(); //Prevent the form's default submission behavior
-    const id = Math.floor(Math.random() * 10000);
-    const item = { id, name, quantity, category };
+    const newId = Math.floor(Math.random() * 10000);
+    const item = { id: newId, name, quantity, category };
     onAddItem(item);
-    console.log(item);
+    // console.log(item);
     alert(
       "Added item: " +
         name +
@@ -34,6 +34,7 @@ export default function NewItem({ onAddItem }) {
         <div className="mb-2">
           <input
             type="text"
+            id="name"
             value={name}
             placeholder="Item name"
             required
