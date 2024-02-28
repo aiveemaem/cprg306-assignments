@@ -10,9 +10,9 @@ const fetchMealIdeas = async () => {
   return data.meals;
 };
 
-export default function MealIdeas() {
+export default function MealIdeas({ ingredient }) {
   const [meals, setMeals] = useState([]);
-  const [selectedIngredient, setSelectedIngredient] = useState("");
+  // const [selectedIngredient, setSelectedIngredient] = useState("");
 
   const loadMealIdeas = async (ingredient) => {
     const meal = await fetchMealIdeas(ingredient);
@@ -20,15 +20,14 @@ export default function MealIdeas() {
   };
 
   useEffect(() => {
-    if (selectedIngredient === "") return;
-    loadMealIdeas(selectedIngredient);
-  }, [selectedIngredient]);
+    loadMealIdeas(ingredient);
+  }, [ingredient]);
 
   return (
     <main>
       <div className="">
         <div>
-          <p>Here are some meal ideas using {selectedIngredient} </p>
+          <p>Here are some meal ideas using {ingredient} </p>
         </div>
         <ul>
           {meals.map((meal, index) => (

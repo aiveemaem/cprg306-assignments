@@ -8,9 +8,23 @@ import MealIdeas from "./meal-ideas.js";
 
 export default function Page() {
   const [items, setItems] = useState(itemsData);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
 
   const handleAddItem = (newItem) => {
     setItems([...items, newItem]);
+  };
+
+  const handleItemSelect = (item) => {
+    // const cleanItem = item.name.replace(/,.*/, '');
+    let cleanItem;
+    if (item.name.includes(",")) {
+      cleanItem = item.name.replace(/,.*/, "");
+    } else {
+      // Regular expression to match emojis
+      const regexEmoji = /[\u{1F300}-\u{1F9FF}]/gu;
+      cleanItem = item.name.replace(regexEmoji, "");
+    }
+    setSelectedIngredient(cleanItem);
   };
 
   return (
@@ -20,11 +34,11 @@ export default function Page() {
         <div className="flex-1 max-w-sm m-4">
           <h3 className="text-xl font-bold">Add New Item</h3>
           <NewItem onAddItem={handleAddItem} />
-          <ItemList items={items} />
+          <ItemList items={items} onItemSelect={handleItemSelect} />
         </div>
         <div className="flex-1 max-w-sm m-4">
           <h3 className="text-xl font-bold">Meal Ideas</h3>
-          <MealIdeas />
+          {selectedIngredient && <MealIdeas ingredient={selectedIngredient} />}
         </div>
       </div>
     </main>
