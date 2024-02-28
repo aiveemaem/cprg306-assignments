@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from "react";
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
 
   const handleSubmit = (event) => {
     event.preventDefault(); //Prevent the form's default submission behavior
-    const item = { name, quantity, category };
+    const newId = Math.floor(Math.random() * 10000);
+    const item = { id: newId, name, quantity, category };
+    onAddItem(item);
     // console.log(item);
     alert(
       "Added item: " +
@@ -24,14 +26,15 @@ export default function NewItem() {
   };
 
   return (
-    <main className="flex justify-center w-full">
+    <main>
       <form
-        className="p-2 m-4 bg-slate-900 text-black max-w-sm w-full"
+        className=" bg-slate-900 text-black max-w-sm w-full rounded-lg shadow-md"
         onSubmit={handleSubmit}
       >
         <div className="mb-2">
           <input
             type="text"
+            id="name"
             value={name}
             placeholder="Item name"
             required
@@ -47,7 +50,7 @@ export default function NewItem() {
             value={quantity}
             required
             className="w-20 ml-1 border-2 border-gray-300 p-2 rounded-lg font-sans"
-            onChange={(event) => setQuantity(event.target.value)}
+            onChange={(event) => setQuantity(parseInt(event.target.value))}
           />
           <select
             className="ml-1 border-2 border-gray-300 p-2 rounded-lg font-sans"
