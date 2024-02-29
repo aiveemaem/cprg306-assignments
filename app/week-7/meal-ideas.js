@@ -4,36 +4,52 @@ import { useState, useEffect } from "react";
 
 const fetchMealIdeas = async () => {
   const response = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}"
+    "https://www.themealdb.com/api/json/v1/1/filter.php?i=${meal}"
   );
   const data = await response.json();
   return data.meals;
 };
 
-export default function MealIdeas({ ingredient }) {
+export default function MealIdeas({ meal }) {
   const [meals, setMeals] = useState([]);
-  // const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const loadMealIdeas = async (ingredient) => {
-    const meal = await fetchMealIdeas(ingredient);
-    setMeals(meal || []);
+  console.log(meals);
+
+  const loadMealIdeas = async (meal) => {
+    const meals = await fetchMealIdeas(meal);
+    setLoading(false);
+    if (meals) {
+      setMeals(meals);
+    } else {
+      setMeals([]);
+    }
   };
 
   useEffect(() => {
-    loadMealIdeas(ingredient);
-  }, [ingredient]);
+    setLoading(true);
+    loadMealIdeas(meal);
+  }, [meal]);
 
   return (
     <main>
       <div className="">
         <div>
-          <p>Here are some meal ideas using {ingredient} </p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : meals.length ? (
+            <p>Here are some meal ideas using {meal}</p>
+          ) : (
+            <p>No meal ideas found for {meal}</p>
+          )}
         </div>
-        <ul>
-          {meals.map((meal, index) => (
-            <li key={index}>{meal.strMeal}</li>
-          ))}
-        </ul>
+        {meals.length > 0 && (
+          <ul>
+            {meals.map((meal) => (
+              <li key={meal.idMeal}>{meal.strMeal}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </main>
   );

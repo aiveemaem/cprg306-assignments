@@ -8,14 +8,13 @@ import MealIdeas from "./meal-ideas.js";
 
 export default function Page() {
   const [items, setItems] = useState(itemsData);
-  const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   const handleAddItem = (newItem) => {
     setItems([...items, newItem]);
   };
 
   const handleItemSelect = (item) => {
-    // const cleanItem = item.name.replace(/,.*/, '');
     let cleanItem;
     if (item.name.includes(",")) {
       cleanItem = item.name.replace(/,.*/, "");
@@ -24,7 +23,7 @@ export default function Page() {
       const regexEmoji = /[\u{1F300}-\u{1F9FF}]/gu;
       cleanItem = item.name.replace(regexEmoji, "");
     }
-    setSelectedIngredient(cleanItem);
+    setSelectedMeal(cleanItem);
   };
 
   return (
@@ -38,7 +37,7 @@ export default function Page() {
         </div>
         <div className="flex-1 max-w-sm m-4">
           <h3 className="text-xl font-bold">Meal Ideas</h3>
-          {selectedIngredient && <MealIdeas ingredient={selectedIngredient} />}
+          {selectedMeal && <MealIdeas meal={selectedMeal} />}
         </div>
       </div>
     </main>
