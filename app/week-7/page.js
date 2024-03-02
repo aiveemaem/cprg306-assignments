@@ -31,8 +31,8 @@ export default function Page() {
   };
 
   return (
-    <main>
-      <h1 className="text-3xl ml-2 font-bold w-full pt-4">Shopping List</h1>
+    <main className="bg-slate-950 p-2 m-2">
+      <h2 className="text-3xl font-bold mb-4">Shopping List</h2>
       <div className="flex">
         <div className="flex-1 max-w-sm m-4">
           <h3 className="text-xl font-bold">Add New Item</h3>
