@@ -23,7 +23,11 @@ export default function Page() {
       const regexEmoji = /[\u{1F300}-\u{1F9FF}]/gu;
       cleanItem = item.name.replace(regexEmoji, "");
     }
-    setSelectedMeal(cleanItem);
+    if (cleanItem) {
+      setSelectedMeal(cleanItem);
+    } else {
+      console.error("Error: Unable to extract meal name from selected item.");
+    }
   };
 
   return (
@@ -37,7 +41,11 @@ export default function Page() {
         </div>
         <div className="flex-1 max-w-sm m-4">
           <h3 className="text-xl font-bold">Meal Ideas</h3>
-          {selectedMeal && <MealIdeas meal={selectedMeal} />}
+          {selectedMeal !== null ? (
+            <MealIdeas meal={selectedMeal} />
+          ) : (
+            <p>Select an item to see meal ideas</p>
+          )}
         </div>
       </div>
     </main>

@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-const fetchMealIdeas = async () => {
+const fetchMealIdeas = async (meal) => {
   const response = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/filter.php?i=${meal}"
+    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${meal}`
   );
   const data = await response.json();
   return data.meals;
@@ -12,22 +12,13 @@ const fetchMealIdeas = async () => {
 
 export default function MealIdeas({ meal }) {
   const [meals, setMeals] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  console.log(meals);
 
   const loadMealIdeas = async (meal) => {
-    const meals = await fetchMealIdeas(meal);
-    setLoading(false);
-    if (meals) {
-      setMeals(meals);
-    } else {
-      setMeals([]);
-    }
+    const fetchedMeals = await fetchMealIdeas(meal);
+    setMeals(fetchedMeals);
   };
 
   useEffect(() => {
-    setLoading(true);
     loadMealIdeas(meal);
   }, [meal]);
 
@@ -35,20 +26,20 @@ export default function MealIdeas({ meal }) {
     <main>
       <div className="">
         <div>
-          {loading ? (
-            <p>Loading...</p>
-          ) : meals.length ? (
+          {meals ? (
             <p>Here are some meal ideas using {meal}</p>
           ) : (
             <p>No meal ideas found for {meal}</p>
           )}
         </div>
-        {meals.length > 0 && (
+        {meals ? (
           <ul>
             {meals.map((meal) => (
               <li key={meal.idMeal}>{meal.strMeal}</li>
             ))}
           </ul>
+        ) : (
+          <p></p>
         )}
       </div>
     </main>
