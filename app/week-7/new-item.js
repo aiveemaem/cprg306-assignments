@@ -25,6 +25,15 @@ export default function NewItem({ onAddItem }) {
     setCategory("produce");
   };
 
+  const handleQuantityChange = (event) => {
+    const value = parseInt(event.target.value);
+    if (!isNaN(value)) {
+      setQuantity(value);
+    } else {
+      setQuantity(0);
+    }
+  };
+
   return (
     <main>
       <form
@@ -50,7 +59,7 @@ export default function NewItem({ onAddItem }) {
             value={quantity}
             required
             className="w-20 ml-1 border-2 border-gray-300 p-2 rounded-lg font-sans"
-            onChange={(event) => setQuantity(parseInt(event.target.value))}
+            onChange={handleQuantityChange}
           />
           <select
             className="ml-1 border-2 border-gray-300 p-2 rounded-lg font-sans"
